@@ -1,0 +1,73 @@
+{
+  "info": {
+    "_postman_id": "c027ac61-1a34-40a3-a33c-6874f29ab9d2",
+    "name": "adverts",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "advertsdata",
+      "id": "d6658732-8957-4d59-87c0-43d3cfb7f2ac",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "[{\"login\":\"Humanista_Kuenzl\",\"password\":\"TeamOne@2022\"}]",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://db.advertsdata.com/rest_api/post_ad_token.cfm?user=ad_token&auth=TOKENRFW9aHx4Dc45pXK",
+          "protocol": "https",
+          "host": ["db", "advertsdata", "com"],
+          "path": ["rest_api", "post_ad_token.cfm"],
+          "query": [
+            {
+              "key": "user",
+              "value": "ad_token"
+            },
+            {
+              "key": "auth",
+              "value": "TOKENRFW9aHx4Dc45pXK"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "filter data",
+      "id": "09138e51-301c-4ab8-b285-4a37f714b4c7",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "[\n    {\n        \"TOKEN\": \"searchTmFf9k447aBp0n8900LdFyZu2fEnWw\",\n        \"ATS_NAME\": \"Client Name\",\n        \"POSTAL_CODE\": \"10115\",\n        \"JOB_TITLE\": \"JAVA\",\n        \"JOB_POSTING\": \"JAVA\",\n        \"NUMBER_OF_ITEMS\": \"2\",\n        \"ITEM_FROM\": \"0\",\n        \"COMPANY_ID_LIST\": \"FIRM7801265,FIRM7846871\",\n        \"COMPANY_ID_LIST_EXCLUDE\":\"yes\",\n        \"EXCLUDE_EMPLOYMENT_AGENCIES\":\"YES\",\n        \"WZ08_CODE\":\"N,J\",\n        \"DKZ\":\"14102\",\n        \"LAND\": \"A\",\n        \"STATE\": \"TIROL\"\n    }\n]",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://db.advertsdata.com/rest_api/post_anz_filter_search_v4.cfm?user=ad_api",
+          "protocol": "https",
+          "host": ["db", "advertsdata", "com"],
+          "path": ["rest_api", "post_anz_filter_search_v4.cfm"],
+          "query": [
+            {
+              "key": "user",
+              "value": "ad_api"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

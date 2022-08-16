@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+$brand-color: #f59c00;
+$light-gray: #e0e0e0;
+
+.container {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background-color: #efefef;
+  form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem;
+    width: 20rem;
+    box-shadow: 4px 4px 0px 4px rgba(212, 212, 212, 0.71);
+    // box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+    border: 0.1px solid $light-gray;
+    background: #fff;
+    .brandContainer {
+      // display: block;
+      // margin: 1rem auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      h1 {    
+        text-align: center;
+      }
+    }
+
+    .brandHeader {
+      display: block;
+      margin: 1rem auto;
+    }
+
+    .loginContainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-direction: column;
+      input {
+        width: 18.5rem;
+        border-radius: 5px;
+        border: 2px solid #ededed;
+        padding: 10px;
+        font-size: 1.2rem;
+        outline: none;
+        font-weight: 100;
+        &:focus-within {
+          border: 2px solid #ffc257 !important;
+        }
+      }
+    }
+
+    .passwordContainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-direction: column;
+      input {
+        width: 18.5rem;
+        border-radius: 5px;
+        border: 2px solid #ededed;
+        padding: 10px;
+        font-size: 1.2rem;
+        outline: none;
+        font-weight: 100;
+        &:focus-within {
+          border: 2px solid #ffc257 !important;
+        }
+      }
+      .inputError {
+        border: 2px solid red !important;
+      }
+    }
+    .error {
+      color: red;
+      margin: .2rem 0;
+      border: 1px solid red;
+      padding: 4px;
+      border-radius: 2px;
+    }
+
+    button {
+      width: 20rem;
+      margin-top: 1rem;
+      background-color: $brand-color;
+      border: 0;
+      border-radius: 5px;
+      color: rgb(255, 255, 255);
+      padding: 0.6rem;
+      font-size: 1.2rem;
+      transition: all 300ms ease;
+      position: relative;
+      &:hover {
+        opacity: 0.8;
+      }
+      &:active {
+        top: 1px;
+      }
+    }
+  }
+}
