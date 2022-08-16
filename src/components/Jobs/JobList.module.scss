@@ -24,22 +24,23 @@ form {
       border: 2px solid #ffc257 !important;
     }
   }
-  button {
-    margin-top: 1rem;
-    background-color: $brand-color;
-    border: 0;
-    border-radius: 5px;
-    color: rgb(255, 255, 255);
-    width: 100%;
-    padding: 0.6rem;
-    font-size: 1.2rem;
-    transition: all 300ms ease;
-    position: relative;
-    &:hover {
-      opacity: 0.8;
-    }
-    &:active {
-      top: 1px;
-    }
+}
+button {
+  margin: 0 auto;
+  display: block;
+  background-color: $brand-color;
+  border: 0;
+  border-radius: 5px;
+  color: rgb(255, 255, 255);
+  width: 10rem;
+  padding: 0.6rem;
+  font-size: 1.2rem;
+  transition: all 300ms ease;
+  position: relative;
+  &:hover {
+    opacity: 0.8;
+  }
+  &:active {
+    top: 1px;
   }
 }

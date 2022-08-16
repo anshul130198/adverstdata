@@ -17,7 +17,7 @@ $light-gray: #e0e0e0;
     width: 20rem;
     box-shadow: 4px 4px 0px 4px rgba(212, 212, 212, 0.71);
     // box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
-    border: 0.1px solid $light-gray;
+    // border: 0.1px solid $light-gray;
     background: #fff;
     .brandContainer {
       // display: block;
@@ -30,12 +30,12 @@ $light-gray: #e0e0e0;
         text-align: center;
       }
     }
-
+​
     .brandHeader {
       display: block;
       margin: 1rem auto;
     }
-
+​
     .loginContainer {
       display: flex;
       justify-content: space-between;
@@ -54,7 +54,7 @@ $light-gray: #e0e0e0;
         }
       }
     }
-
+​
     .passwordContainer {
       display: flex;
       justify-content: space-between;
@@ -83,7 +83,7 @@ $light-gray: #e0e0e0;
       padding: 4px;
       border-radius: 2px;
     }
-
+​
     button {
       width: 20rem;
       margin-top: 1rem;
@@ -95,6 +95,7 @@ $light-gray: #e0e0e0;
       font-size: 1.2rem;
       transition: all 300ms ease;
       position: relative;
+      text-decoration: none;
       &:hover {
         opacity: 0.8;
       }
