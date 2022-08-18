@@ -16,7 +16,7 @@ const initialValues = {
   JOB_POSTING: "",
   EXCLUDE_EMPLOYMENT_AGENCIES: "",
   WZ08_CODE: "",
-  JOB_CATEGORY_CODE: "",
+  JOB_CATEGORY_CODE: [],
   LAND: "D",
   COMPANY_ID: "",
   COMPANY_NAME: "",

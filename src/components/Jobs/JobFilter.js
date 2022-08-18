@@ -8,7 +8,9 @@ import State_List from "../../constants/state_list";
 
 const JobFilter = (props) => {
   const { payload, setPayload } = props;
+
   const handleInputChange = (e) => {
+    console.log(e);
     if (e && e.target) {
       const { name, value } = e.target;
       setPayload({
@@ -16,11 +18,21 @@ const JobFilter = (props) => {
         [name]: value,
       });
     } else {
-      setPayload({
-        ...payload,
-        [e.name]: e.value,
-      });
-      console.log("e", e);
+      if (Array.isArray(payload[e[0].name])) {
+        const arr = [];
+        e.map((item) => {
+          arr.push(item.value);
+        });
+        setPayload({
+          ...payload,
+          [e[0].name]: arr,
+        });
+      } else {
+        setPayload({
+          ...payload,
+          [e.name]: e.value,
+        });
+      }
       console.log("payload", payload);
     }
   };
@@ -31,7 +43,7 @@ const JobFilter = (props) => {
     { value: "no", label: "no", name: "EXCLUDE_EMPLOYMENT_AGENCIES" },
   ];
 
-  const WZ08_CODE_OPTIONS = WZ08_list.map(item => {
+  const WZ08_CODE_OPTIONS = WZ08_list.map((item) => {
     item.value = item.wz08;
     item.label = item.wz08;
     item.name = "WZ08_CODE";
@@ -43,31 +55,31 @@ const JobFilter = (props) => {
   //   { value: "321", label: "321", name: "WZ08_CODE" },
   // ];
 
-  const JOB_CATEGORY_CODE_OPTIONS = Job_category_list.map(item => {
+  const JOB_CATEGORY_CODE_OPTIONS = Job_category_list.map((item) => {
     item.value = item.code;
     item.label = item.code;
     item.name = "JOB_CATEGORY_CODE";
     return item;
-  })
+  });
   // const JOB_CATEGORY_CODE_OPTIONS = [
   //   { value: "", label: "", name: "JOB_CATEGORY_CODE" },
   //   { value: "c1", label: "c1", name: "JOB_CATEGORY_CODE" },
   //   { value: "c2", label: "c2", name: "JOB_CATEGORY_CODE" },
   // ];
 
-  const DKZ_CODE_OPTIONS = DKZ_list.map(item => {
+  const DKZ_CODE_OPTIONS = DKZ_list.map((item) => {
     item.value = item.dkz;
     item.label = item.dkz;
     item.name = "DKZ";
     return item;
-  })
+  });
 
-  const STATE_CODE_OPTIONS = State_List.map(item => {
+  const STATE_CODE_OPTIONS = State_List.map((item) => {
     item.value = item.original_state;
     item.label = item.original_state;
     item.name = "STATE_CODE";
     return item;
-  })
+  });
 
   const COMPANY_ID_LIST_EXCLUDE_OPTIONS = [
     { value: "", label: "", name: "COMPANY_ID_LIST_EXCLUDE" },
@@ -214,9 +226,9 @@ const JobFilter = (props) => {
           <label htmlFor="cars">JOB CATEGORY CODE</label>
           <Select
             options={JOB_CATEGORY_CODE_OPTIONS}
-            value={payload.JOB_CATEGORY_CODE}
             onChange={handleInputChange}
             isClearable={true}
+            isMulti
           />
         </div>
         <div className={styles["grid-item"]}>
