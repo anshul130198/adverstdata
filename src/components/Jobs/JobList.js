@@ -6,17 +6,18 @@ import to from "../../utils/to";
 import JobFilter from "./JobFilter";
 import JobListItem from "./JobListItem";
 import styles from "./JobList.module.scss";
-
+import exportFromJSON from "export-from-json";
+import Download from '../../assets/download.png'
 const initialValues = {
-  ATS_NAME: "",
-  POSTAL_CODE: "",
+  ATS_NAME: "Client Name",
+  POSTAL_CODE: "10115",
   SURROUNDING_REGION: "",
   DKZ: "",
   JOB_TITLE: "",
   JOB_POSTING: "",
   EXCLUDE_EMPLOYMENT_AGENCIES: "yes",
-  WZ08_CODE: [],
-  JOB_CATEGORY_CODE: [],
+  WZ08_CODE: "",
+  JOB_CATEGORY_CODE: "",
   LAND: "",
   COMPANY_ID: "",
   COMPANY_NAME: "",
@@ -50,21 +51,12 @@ const JobList = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [payload, setPayload] = useState(initialValues);
-  // const [token, setToken] = useState(null)
-
-  // useEffect(() => {
-  //   const token = JSON.parse(localStorage.getItem('token'));
-  // }, [third])
+  const [jobResponse, setJobResponse] = useState([])
 
   const handleSearch = async (e) => {
     e.preventDefault();
     setLoading(true);
     const token = JSON.parse(localStorage.getItem("token"));
-    // setPayload({
-    //   ...payload,
-    //   "TOKEN": token?.TOKEN
-    // })
-    // console.log('payload', payload)
     const [error, res] = await to(
       commonService.filterData({ ...payload, TOKEN: token.TOKEN })
     );
@@ -73,18 +65,32 @@ const JobList = () => {
       setLoading(false);
     } else {
       const jobs = res[0].EXPORT.RESULT.ITEM;
+      setJobResponse(res[0])
       setJobs(jobs);
       setLoading(false);
     }
   };
 
+  const downloadJobResults = () => {
+    const fileData = {
+      data: jobResponse,
+      fileName: "download",
+      exportType: exportFromJSON.types.json
+    }
+    exportFromJSON(fileData)
+  }
+
   return (
-    <div>
-      <h1>{strings.JOBS}</h1>
+    <div className={styles["jobListContainer"]}>
+      <h1 className={styles["heading"]}>{strings.JOBS}</h1>
       {<JobFilter payload={payload} setPayload={setPayload} />}
       <button type="submit" onClick={handleSearch}>
         search
       </button>
+      {jobResponse.EXPORT && <button onClick={() => { downloadJobResults() }}>
+        Download All results
+        <img src={Download} alt="" style={{width: '1.5rem', position:'relative', top: '5px', left: '1rem'}} />
+      </button>}
       {loading && <Loading />}
       {jobs?.length && !loading
         ? jobs.map((item) => <JobListItem job={item} key={item["AD-ID"]} />)

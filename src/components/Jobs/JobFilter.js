@@ -18,46 +18,31 @@ const JobFilter = (props) => {
     //for normal input
     if (e && e.target) {
       const { name, value } = e.target;
-
-      switch (name) {
-        case "POSTAL_CODE" :
-        case "SURROUNDING_REGION": {
-          setPayload((prev) => {
-            return {
-              ...prev,
-              [name]: +value,
-            };
-          });
-          break;
-        }
-        default: {
-          setPayload((prev) => {
-            return {
-              ...prev,
-              [name]: value,
-            };
-          });
-        }
-      }
+      setPayload((prev) => {
+        return {
+          ...prev,
+          [name]: value,
+        };
+      });
     }
     // for React Select Input
     else {
       // for React Mutli Select
-      if (e && e.length > 0 && Array.isArray(payload[e[0].name])) {
+      if (e && e.length > 0) {
         const arr = [];
         e.map((item) => {
-          arr.push(item.value);
+          return arr.push(item.value);
         });
         setPayload((prev) => {
           return {
             ...prev,
-            [e[0].name]: arr,
+            [e[0].name]: String(arr),
           };
         });
       }
       //For React Select Single Select
       else {
-        if(e.name == 'STATE') {
+        if(e.name === 'STATE') {
           setPayload((prev) => {
             return {
               ...prev,
@@ -78,7 +63,7 @@ const JobFilter = (props) => {
   };
 
   const EXCLUDE_EMPLOYMENT_AGENCIES_OPTIONS = [
-    { value: "", label: "", name: "EXCLUDE_EMPLOYMENT_AGENCIES" },
+    { value: "", label: "empty", name: "EXCLUDE_EMPLOYMENT_AGENCIES" },
     { value: "yes", label: "yes", name: "EXCLUDE_EMPLOYMENT_AGENCIES" },
     { value: "no", label: "no", name: "EXCLUDE_EMPLOYMENT_AGENCIES" },
   ];
@@ -122,7 +107,7 @@ const JobFilter = (props) => {
   });
 
   const COMPANY_ID_LIST_EXCLUDE_OPTIONS = [
-    { value: "", label: "", name: "COMPANY_ID_LIST_EXCLUDE" },
+    { value: "", label: "empty", name: "COMPANY_ID_LIST_EXCLUDE" },
     { value: "yes", label: "yes", name: "COMPANY_ID_LIST_EXCLUDE" },
     { value: "no", label: "no", name: "COMPANY_ID_LIST_EXCLUDE" },
   ];
@@ -171,8 +156,8 @@ const JobFilter = (props) => {
   ];
 
   return (
-    <div>
-      <h1>Filters</h1>
+    <div className={styles["filterContainer"]}>
+      <h1 className="heading">Filters</h1>
       <div className={styles["grid-container"]}>
         <div className={styles["grid-item"]}>
           ATS Name{" "}
@@ -299,7 +284,6 @@ const JobFilter = (props) => {
           <label htmlFor="cars">COMPANY ID LIST EXCLUDE</label>
           <Select
             options={COMPANY_ID_LIST_EXCLUDE_OPTIONS}
-            value={payload.COMPANY_ID_LIST_EXCLUDE}
             onChange={handleInputChange}
             isClearable={true}
           />

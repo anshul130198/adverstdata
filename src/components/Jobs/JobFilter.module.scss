@@ -1,45 +1,50 @@
-.grid-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  gap: 1rem;
-  padding: 2px;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+.filterContainer {
+  .heading {
+    border: 1px solid red;
+  }
+  .grid-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+    padding: 2px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 
-  .grid-item {
-    border: 1px solid #c9c9c9;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    font-size: 1rem;
-    text-align: left;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 8px;
+    .grid-item {
+      border: 1px solid #c9c9c9;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      font-size: 1rem;
+      text-align: left;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 8px;
 
-    select {
-      height: 2rem;
+      select {
+        height: 2rem;
 
-      option {
-        border-radius: 5px;
-        border: 2px solid #ededed;
-        padding: 5px;
-        font-size: 1rem;
-        outline: none;
-        font-weight: 100;
+        option {
+          border-radius: 5px;
+          border: 2px solid #ededed;
+          padding: 5px;
+          font-size: 1rem;
+          outline: none;
+          font-weight: 100;
 
-        &:focus-within {
-          border: 2px solid #ffc257 !important;
+          &:focus-within {
+            border: 2px solid #ffc257 !important;
+          }
         }
       }
     }
   }
-}
 
-.filterInput {
-  border-radius: 5px;
-  border: 2px solid #ededed;
-  padding: 5px;
-  font-size: 1rem;
-  outline: none;
-  font-weight: 100;
+  .filterInput {
+    border-radius: 5px;
+    border: 2px solid #ededed;
+    padding: 5px;
+    font-size: 1rem;
+    outline: none;
+    font-weight: 100;
+  }
 }

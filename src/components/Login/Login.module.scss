@@ -18,23 +18,28 @@ $light-gray: #e0e0e0;
     width: 20rem;
     box-shadow: 4px 4px 0px 4px rgba(212, 212, 212, 0.71);
     background: #fff;
-
-    // border: 5px solid red;
-    // .brandContainer {
-    //   // display: block;
-    //   // margin: 1rem auto;
-    //   display: flex;
-    //   justify-content: center;
-    //   align-items: center;
-    //   flex-direction: column;
-    //   h1 {
-    //     text-align: center;
-    //   }
-    // }
-    // ​ .brandHeader {
-    //   display: block;
-    //   margin: 1rem auto;
-    // }
+    .error {
+      color: red;
+      margin: 0.2rem 0;
+      border: 1px solid red;
+      padding: 4px;
+      border-radius: 2px;
+    }
+    .brandContainer {
+      // display: block;
+      // margin: 1rem auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      h1 {
+        text-align: center;
+      }
+    }
+    ​ .brandHeader {
+      display: block;
+      margin: 1rem auto;
+    }
     .loginContainer {
       display: flex;
       justify-content: space-between;
@@ -81,7 +86,7 @@ $light-gray: #e0e0e0;
         position: absolute;
         border: 5px;
         top: 0.75rem;
-        right: 5px;
+        right: 1rem;
         width: 1.5rem;
       }
 
@@ -101,7 +106,7 @@ $light-gray: #e0e0e0;
       .loginButton {
         width: 20rem;
         margin-top: 1rem;
-        // background-color: $brand-color;
+        background-color: $brand-color;
         border: 0;
         border-radius: 5px;
         color: rgb(255, 255, 255);

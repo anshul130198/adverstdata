@@ -17,65 +17,43 @@ const Login = () => {
     password: "",
     loginError: "",
     passwordError: "",
-    isValid: false,
+    errorMessage: ""
   });
   const [showPassword, setShowPassword] = useState(false);
 
-  // const validate = () => {
-  //   const { login, password } = loginData;
-
-  //   if (!login) {
-  //     console.log('login', login)
-  //     setLoginData({
-  //       ...loginData,
-  //       loginError: "login is Required",
-  //       isValid: false,
-  //     });
-  //     return false;
-  //   } else {
-  //     setLoginData({
-  //       ...loginData,
-  //       loginError: "",
-  //       isValid: true
-  //     });
-  //   }
-  //   if (!password) {
-  //     setLoginData({
-  //       ...loginData,
-  //       passwordError: "Password is Required",
-  //       isValid: false,
-  //     });
-  //     return false;
-  //   } else {
-  //     setLoginData({
-  //       ...loginData,
-  //       passwordError: "",
-  //       isValid: true
-  //     });
-  //   }
-  //   return loginData.isValid;
-  // };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // if (!validate()) {
-    //   console.log("valid", validate());
-    //   return;
-    // } else {
-    const body = [loginData];
-    const [error, res] = await to(commonService.login(body));
-    if (error && !res) {
-      console.log("error", error);
-      alert("Invalid password");
+    if (loginData.login === "" || loginData.password === "") {
+      setLoginData({
+        ...loginData,
+        errorMessage: "login and password is Required",
+      });
+      return;
     } else {
-      console.log("res", res);
-      console.log("res[0]", res[0]);
-      localStorage.removeItem("token");
-      localStorage.setItem("token", JSON.stringify(res[0]));
-      alert("login success");
-      navigate("/jobs");
+      setLoginData({
+        ...loginData,
+        errorMessage: "",
+      });
+      const body = [loginData];
+      const [error, res] = await to(commonService.login(body));
+      if (error && !res) {
+        console.log("error", error);
+        setLoginData({
+          ...loginData,
+          errorMessage: "login or password is Incorrect",
+        });
+      } else {
+        console.log("res", res);
+        console.log("res[0]", res[0]);
+        setLoginData({
+          ...loginData,
+          errorMessage: "",
+        });
+        localStorage.removeItem("token");
+        localStorage.setItem("token", JSON.stringify(res[0]));
+        navigate("/jobs");
+      }
     }
-    // }
   };
 
   const handleLoginData = ({ name, value }) => {
@@ -86,8 +64,9 @@ const Login = () => {
     <div>
       <div className={styles["container"]}>
         <form>
+          {loginData.errorMessage !== "" && <p className={styles["error"]}>{loginData.errorMessage}</p>}
           <div className={styles["brandContainer"]}>
-            <img src={BrandLogo} className={styles["brandHeader"]} />
+            <img src={BrandLogo} alt="" className={styles["brandHeader"]} />
             <h1>{strings.LOGIN.toUpperCase()}</h1>
           </div>
           <div className={styles["loginContainer"]}>
@@ -126,6 +105,7 @@ const Login = () => {
               onClick={() => {
                 setShowPassword(!showPassword);
               }}
+              alt=""
               src={showPassword ? VisibilityOn : VisibilityOff}
             />
             {loginData.passwordError && (

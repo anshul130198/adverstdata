@@ -13,7 +13,7 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <TempNav />
+        {/* <TempNav /> */}
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/jobs" element={<JobList />} />
