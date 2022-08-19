@@ -1,15 +1,7 @@
 import axios from 'axios';
-// import { Agent } from "https";
 
 export class AxiosBase {
-
   async HttpRequest(options) {
-    // if (isLocalHost()) {
-    // const agent = new Agent({
-    //   rejectUnauthorized: false
-    // });
-    // options.httpsAgent = agent;
-    // }
     return axios(options).then(res => {
       if (res && res.data) {
         return res.data;
@@ -22,6 +14,7 @@ export class AxiosBase {
     const options = {
       method: 'POST',
       url: url,
+      data: body
     };
     if (body) {
       options.headers = {
@@ -32,7 +25,6 @@ export class AxiosBase {
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization, Content-Length, X-Requested-With, Accept'
       };
-      options.data = body;
     }
     if (headers) {
       options.headers = Object.assign(options.headers, headers)

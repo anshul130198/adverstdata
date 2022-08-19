@@ -5,23 +5,23 @@ import strings from "../../utils/localization/localization";
 import to from "../../utils/to";
 import JobFilter from "./JobFilter";
 import JobListItem from "./JobListItem";
-import styles from "./JobList.module.scss";
+import styles from './JobList.module.scss'
 
 const initialValues = {
-  ATS_NAME: "",
+  ATS_NAME: "Client Name",
   POSTAL_CODE: "",
   SURROUNDING_REGION: "",
   DKZ: "",
   JOB_TITLE: "",
   JOB_POSTING: "",
-  EXCLUDE_EMPLOYMENT_AGENCIES: "",
+  EXCLUDE_EMPLOYMENT_AGENCIES: "yes",
   WZ08_CODE: "",
-  JOB_CATEGORY_CODE: [],
+  JOB_CATEGORY_CODE: "PW",
   LAND: "D",
   COMPANY_ID: "",
   COMPANY_NAME: "",
   COMPANY_ID_LIST: "",
-  COMPANY_ID_LIST_EXCLUDE: "",
+  COMPANY_ID_LIST_EXCLUDE: "yes",
   COMPANY_COUNTRY: "D",
   COMPANY_POSTAL_CODE: "",
   ITEM_FROM: "0",
@@ -46,37 +46,52 @@ const initialValues = {
 };
 
 const JobList = () => {
-  const commonService = new CommonService();
+  const commonService = new CommonService()
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [payload, setPayload] = useState(initialValues);
+  // const [token, setToken] = useState(null)
+
+  // useEffect(() => {
+  //   const token = JSON.parse(localStorage.getItem('token'));
+  // }, [third])
+
 
   const handleSearch = async (e) => {
-    console.log("payload", payload);
-    e.preventDefault();
-    setLoading(true);
-    const [error, res] = await to(commonService.filterData());
-    if (error) {
-      console.log("error occured while fetching jobs", error);
-      setLoading(false);
+    e.preventDefault()
+    setLoading(true)
+    const token = JSON.parse(localStorage.getItem('token'));
+    // setPayload({
+    //   ...payload,
+    //   "TOKEN": token?.TOKEN
+    // })
+    // console.log('payload', payload)
+    const [error, res] = await to(commonService.filterData({ ...payload, "TOKEN": token.TOKEN }))
+    if (error && !res) {
+      console.log('error occured while fetching jobs', error)
+      setLoading(false)
     } else {
-      setJobs(res);
-      setLoading(false);
-      console.log("response", res);
+      const jobs = res[0].EXPORT.RESULT.ITEM
+      setJobs(jobs)
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <div>
       <h1>{strings.JOBS}</h1>
       {<JobFilter payload={payload} setPayload={setPayload} />}
-      {loading && <Loading />}
-      {jobs?.length && !loading
-        ? jobs.map((item) => <JobListItem job={item} key={item.id} />)
-        : ""}
       <button type="submit" onClick={handleSearch}>
         search
       </button>
+      {loading && <Loading />}
+      {
+        jobs?.length && !loading
+          ? jobs.map((item) =>
+            <JobListItem job={item} key={item['AD-ID']} />
+          )
+          : ''
+      }
     </div>
   );
 };

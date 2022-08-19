@@ -178,7 +178,6 @@ const JobFilter = (props) => {
           <label htmlFor="cars">DKZ CODE</label>
           <Select
             options={DKZ_CODE_OPTIONS}
-            value={payload.DKZ}
             onChange={handleInputChange}
             isClearable={true}
           />
@@ -207,8 +206,6 @@ const JobFilter = (props) => {
           <label htmlFor="cars">EXCLUDE EMPLOYMENT AGENCIES OPTIONS</label>
           <Select
             options={EXCLUDE_EMPLOYMENT_AGENCIES_OPTIONS}
-            value={payload.EXCLUDE_EMPLOYMENT_AGENCIES}
-            label="EXCLUDE_EMPLOYMENT_AGENCIES"
             onChange={handleInputChange}
           />
         </div>
@@ -217,7 +214,6 @@ const JobFilter = (props) => {
           <Select
             isMulti={true}
             options={WZ08_CODE_OPTIONS}
-            value={payload.WZ08_CODE}
             onChange={handleInputChange}
             isClearable={true}
           />
@@ -267,8 +263,8 @@ const JobFilter = (props) => {
             className={styles["filterInput"]}
             type="text"
             name="COMPANY_ID_LIST"
-            value={payload.COMPANY_ID_LIST}
             onChange={handleInputChange}
+            // options={}
           />
         </div>
         <div className={styles["grid-item"]}>
@@ -406,7 +402,6 @@ const JobFilter = (props) => {
           <label htmlFor="">CAREER LEVEL </label>
           <Select
             options={CAREER_LEVEL_OPTIONS}
-            value={payload.CAREER_LEVEL}
             onChange={handleInputChange}
             isClearable={true}
           />
@@ -453,7 +448,6 @@ const JobFilter = (props) => {
           <Select
             options={SORT_BY_OPTIONS}
             name="SORT_BY"
-            value={payload.SORT_BY}
             onChange={handleInputChange}
             isClearable={true}
           />
@@ -463,9 +457,8 @@ const JobFilter = (props) => {
           <Select
             options={STATE_CODE_OPTIONS}
             name="STATE_CODE"
-            value={payload.STATE_CODE}
             onChange={handleInputChange}
-            isClearable={true}
+            value={payload.STATE_CODE}
           />
         </div>
         <div className={styles["grid-item"]}>

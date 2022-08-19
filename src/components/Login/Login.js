@@ -5,6 +5,8 @@ import strings from "../../utils/localization/localization";
 import to from "../../utils/to";
 import styles from "./Login.module.scss";
 import BrandLogo from "../../assets/brandLogo.png";
+import VisibilityOn from "../../assets/visibility_on.png"
+import VisibilityOff from "../../assets/visibility_off.png"
 
 const Login = () => {
   const navigate = useNavigate();
@@ -17,61 +19,63 @@ const Login = () => {
     passwordError: "",
     isValid: false,
   });
+  const [showPassword, setShowPassword] = useState(false)
 
-  const validate = () => {
-    const { login, password } = loginData;
+  // const validate = () => {
+  //   const { login, password } = loginData;
 
-    if (!login) {
-      console.log('login', login)
-      setLoginData({
-        ...loginData,
-        loginError: "login is Required",
-        isValid: false,
-      });
-      return false;
-    } else {
-      setLoginData({
-        ...loginData,
-        loginError: "",
-        isValid: true
-      });
-    }
-    if (!password) {
-      setLoginData({
-        ...loginData,
-        passwordError: "Password is Required",
-        isValid: false,
-      });
-      return false;
-    } else {
-      setLoginData({
-        ...loginData,
-        passwordError: "",
-        isValid: true
-      });
-    }
-    return loginData.isValid;
-  };
+  //   if (!login) {
+  //     console.log('login', login)
+  //     setLoginData({
+  //       ...loginData,
+  //       loginError: "login is Required",
+  //       isValid: false,
+  //     });
+  //     return false;
+  //   } else {
+  //     setLoginData({
+  //       ...loginData,
+  //       loginError: "",
+  //       isValid: true
+  //     });
+  //   }
+  //   if (!password) {
+  //     setLoginData({
+  //       ...loginData,
+  //       passwordError: "Password is Required",
+  //       isValid: false,
+  //     });
+  //     return false;
+  //   } else {
+  //     setLoginData({
+  //       ...loginData,
+  //       passwordError: "",
+  //       isValid: true
+  //     });
+  //   }
+  //   return loginData.isValid;
+  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!validate()) {
-      console.log("valid", validate());
-      return;
+    // if (!validate()) {
+    //   console.log("valid", validate());
+    //   return;
+    // } else {
+    const body = [loginData];
+    const [error, res] = await to(commonService.login(body));
+    if (error && !res) {
+      console.log("error", error);
+      alert("Invalid password");
     } else {
-      console.log("vali", validate());
-      const body = [loginData];
-
-      const [error, res] = await to(commonService.login(body));
-      if (error) {
-        console.log("error", error);
-        alert("login fail");
-      } else {
-        console.log("res", res);
-        alert("login success");
-        navigate("/jobs");
-      }
+      console.log("res", res);
+      console.log("res[0]", res[0]);
+      localStorage.removeItem('token');
+      localStorage.setItem('token', JSON.stringify(res[0]));
+      alert("login success");
+      navigate("/jobs");
     }
+    // }
   };
 
   const handleLoginData = ({ name, value }) => {
@@ -88,6 +92,7 @@ const Login = () => {
           </div>
           <div className={styles["loginContainer"]}>
             <input
+              required={true}
               className={styles["login"]}
               type="text"
               id="login"
@@ -103,8 +108,9 @@ const Login = () => {
           <br />
           <div className={styles["passwordContainer"]}>
             <input
+              required={true}
               className={styles["password"]}
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
               name="password"
               placeholder="Enter Password"
@@ -113,11 +119,12 @@ const Login = () => {
                 handleLoginData({ name: "password", value: e.target.value });
               }}
             />
+            <img className={styles["passwordIcon"]} onClick={() => { setShowPassword(!showPassword) }} src={showPassword ? VisibilityOn : VisibilityOff} />
             {loginData.passwordError && <p className={styles["error"]}>{loginData.passwordError}</p>}
           </div>
           <br />
           <Link to="/jobs">
-            <button onClick={handleSubmit}>login</button>
+            <button className={styles["loginButton"]} onClick={handleSubmit}>login</button>
           </Link>
         </form>
       </div>
