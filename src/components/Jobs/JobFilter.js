@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./JobFilter.module.scss";
 import Select from "react-select";
 import WZ08_list from "../../constants/WZ08_list";
@@ -9,31 +9,71 @@ import State_List from "../../constants/state_list";
 const JobFilter = (props) => {
   const { payload, setPayload } = props;
 
+  useEffect(() => {
+    // action on update of movies
+    console.log("payload inside useEffect", payload);
+  }, [payload]);
+
   const handleInputChange = (e) => {
-    console.log(e);
+    //for normal input
     if (e && e.target) {
       const { name, value } = e.target;
-      setPayload({
-        ...payload,
-        [name]: value,
-      });
-    } else {
-      if (Array.isArray(payload[e[0].name])) {
+
+      switch (name) {
+        case "POSTAL_CODE" :
+        case "SURROUNDING_REGION": {
+          setPayload((prev) => {
+            return {
+              ...prev,
+              [name]: +value,
+            };
+          });
+          break;
+        }
+        default: {
+          setPayload((prev) => {
+            return {
+              ...prev,
+              [name]: value,
+            };
+          });
+        }
+      }
+    }
+    // for React Select Input
+    else {
+      // for React Mutli Select
+      if (e && e.length > 0 && Array.isArray(payload[e[0].name])) {
         const arr = [];
         e.map((item) => {
           arr.push(item.value);
         });
-        setPayload({
-          ...payload,
-          [e[0].name]: arr,
-        });
-      } else {
-        setPayload({
-          ...payload,
-          [e.name]: e.value,
+        setPayload((prev) => {
+          return {
+            ...prev,
+            [e[0].name]: arr,
+          };
         });
       }
-      console.log("payload", payload);
+      //For React Select Single Select
+      else {
+        if(e.name == 'STATE') {
+          setPayload((prev) => {
+            return {
+              ...prev,
+              [e.name]: e.value,
+              'LAND': e.country
+            };
+          });
+        } else {
+          setPayload((prev) => {
+            return {
+              ...prev,
+              [e.name]: e.value,
+            };
+          });
+        }
+      }
     }
   };
 
@@ -77,7 +117,7 @@ const JobFilter = (props) => {
   const STATE_CODE_OPTIONS = State_List.map((item) => {
     item.value = item.original_state;
     item.label = item.original_state;
-    item.name = "STATE_CODE";
+    item.name = "STATE";
     return item;
   });
 
@@ -140,7 +180,6 @@ const JobFilter = (props) => {
             className={styles["filterInput"]}
             name="ATS_NAME"
             type="text"
-            value={payload.ATS_NAME}
             onChange={handleInputChange}
           />
         </div>
@@ -150,30 +189,18 @@ const JobFilter = (props) => {
             className={styles["filterInput"]}
             name="POSTAL_CODE"
             type="text"
-            value={payload.POSTAL_CODE}
             onChange={handleInputChange}
           />
         </div>
         <div className={styles["grid-item"]}>
-          SURROUNDING REGION{" "}
+          SURROUNDING REGION IN KMS{" "}
           <input
             className={styles["filterInput"]}
             name="SURROUNDING_REGION"
-            type="number"
-            value={payload.SURROUNDING_REGION}
+            type="text"
             onChange={handleInputChange}
           />
         </div>
-        {/* <div className={styles["grid-item"]}>
-          DKZ{" "}
-          <input
-            className={styles["filterInput"]}
-            name="DKZ"
-            type="text"
-            value={payload.DKZ}
-            onChange={handleInputChange}
-          />
-        </div> */}
         <div className={styles["grid-item"]}>
           <label htmlFor="cars">DKZ CODE</label>
           <Select
@@ -212,7 +239,7 @@ const JobFilter = (props) => {
         <div className={styles["grid-item"]}>
           <label htmlFor="cars">WZ08 CODE</label>
           <Select
-            isMulti={true}
+            isMulti
             options={WZ08_CODE_OPTIONS}
             onChange={handleInputChange}
             isClearable={true}
@@ -234,6 +261,7 @@ const JobFilter = (props) => {
             name="LAND"
             type="text"
             value={payload.LAND}
+            readOnly
             onChange={handleInputChange}
           />
         </div>

@@ -1,10 +1,12 @@
 $brand-color: #f59c00;
+
 h1 {
   display: block;
-  margin : 1rem auto;
+  margin: 1rem auto;
   text-align: center;
   width: 10rem;
 }
+
 form {
   display: flex;
   justify-content: space-between;
@@ -12,6 +14,7 @@ form {
   flex-direction: column;
   width: 40%;
   margin: 0 auto;
+
   input {
     width: 100%;
     border-radius: 5px;
@@ -20,11 +23,13 @@ form {
     font-size: 1.2rem;
     outline: none;
     font-weight: 100;
+
     &:focus-within {
       border: 2px solid #ffc257 !important;
     }
   }
 }
+
 button {
   margin: 2rem auto;
   display: block;
@@ -37,9 +42,11 @@ button {
   font-size: 1.2rem;
   transition: all 300ms ease;
   position: relative;
+
   &:hover {
     opacity: 0.8;
   }
+
   &:active {
     top: 1px;
   }

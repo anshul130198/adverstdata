@@ -8,6 +8,7 @@ $light-gray: #e0e0e0;
   place-items: center;
   height: 100vh;
   background-color: #efefef;
+
   form {
     display: flex;
     justify-content: center;
@@ -17,6 +18,7 @@ $light-gray: #e0e0e0;
     width: 20rem;
     box-shadow: 4px 4px 0px 4px rgba(212, 212, 212, 0.71);
     background: #fff;
+
     // border: 5px solid red;
     // .brandContainer {
     //   // display: block;
@@ -33,11 +35,12 @@ $light-gray: #e0e0e0;
     //   display: block;
     //   margin: 1rem auto;
     // }
-    ​ .loginContainer {
+    .loginContainer {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       flex-direction: column;
+
       input {
         width: 18.5rem;
         border-radius: 5px;
@@ -46,17 +49,20 @@ $light-gray: #e0e0e0;
         font-size: 1.2rem;
         outline: none;
         font-weight: 100;
+
         &:focus-within {
           border: 2px solid #ffc257 !important;
         }
       }
     }
-    ​ .passwordContainer {
+
+    .passwordContainer {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       flex-direction: column;
       position: relative;
+
       input {
         width: 18.5rem;
         border-radius: 5px;
@@ -65,21 +71,25 @@ $light-gray: #e0e0e0;
         font-size: 1.2rem;
         outline: none;
         font-weight: 100;
+
         &:focus-within {
           border: 2px solid #ffc257 !important;
         }
       }
+
       .passwordIcon {
         position: absolute;
         border: 5px;
         top: 0.75rem;
-        right: -10px;
+        right: 5px;
         width: 1.5rem;
       }
+
       .inputError {
         border: 2px solid red !important;
       }
     }
+
     // .error {
     //   color: red;
     //   margin: 0.2rem 0;
@@ -88,7 +98,7 @@ $light-gray: #e0e0e0;
     //   border-radius: 2px;
     // }
     a {
-      ​.loginButton {
+      .loginButton {
         width: 20rem;
         margin-top: 1rem;
         // background-color: $brand-color;
@@ -100,9 +110,11 @@ $light-gray: #e0e0e0;
         transition: all 300ms ease;
         position: relative;
         text-decoration: none;
+
         &:hover {
           opacity: 0.8;
         }
+
         &:active {
           top: 1px;
         }

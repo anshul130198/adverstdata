@@ -1,5 +1,5 @@
 import React from "react";
-import styles from './JobListItem.module.scss'
+import styles from "./JobListItem.module.scss";
 
 const JobListItem = (props) => {
   // const { id, name, username, email } = props.job;
