@@ -15,6 +15,15 @@ const JobListItem = (props) => {
     exportFromJSON(fileData);
   };
 
+  const renderAdText = () => {
+    return <div dangerouslySetInnerHTML={{ __html: TEXT }} />;
+  };
+
+  // function Component() {
+  //   const htmlString = '...';
+  //   return <div dangerouslySetInnerHTML={__html: htmlString} />;
+  // }
+
   return (
     <div className={styles["itemContainer"]}>
       <div className={styles["jobListItem"]}>POSITION : {POSITION}</div>
@@ -25,8 +34,9 @@ const JobListItem = (props) => {
       </div>
       <div className={styles["jobListItem"]}>LOCATION : {LOCATION}</div>
       <div className={styles["jobListItem"]}>WZ08 : {WZ08}</div>
-      <div className={styles["jobListItem"]}>TEXT : {TEXT}</div>
-      <br />
+      <div className={styles["jobListItem"]}>
+        Description: <div dangerouslySetInnerHTML={{ __html: TEXT }}></div>
+      </div>
       <br />
       <div className={styles["jobListItem"]}>
         <button

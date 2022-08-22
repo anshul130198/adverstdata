@@ -87,9 +87,11 @@ const JobList = () => {
       <button type="submit" onClick={handleSearch}>
         search
       </button>
-      {jobResponse.EXPORT && <button onClick={() => { downloadJobResults() }}>
+      {jobResponse?.EXPORT?.ITEMS === 0 && 'No results found'}
+      {jobResponse?.EXPORT?.ITEMS?.RESULT}
+      {jobResponse?.EXPORT?.ITEMS > 0 && <button onClick={() => { downloadJobResults() }}>
         Download All results
-        <img src={Download} alt="" style={{width: '1.5rem', position:'relative', top: '5px', left: '1rem'}} />
+        <img src={Download} alt="" style={{ width: '1.5rem', position: 'relative', top: '5px', left: '1rem' }} />
       </button>}
       {loading && <Loading />}
       {jobs?.length && !loading
