@@ -9,8 +9,8 @@ import styles from "./JobList.module.scss";
 import exportFromJSON from "export-from-json";
 import Download from '../../assets/download.png'
 const initialValues = {
-  ATS_NAME: "Client Name",
-  POSTAL_CODE: "10115",
+  ATS_NAME: "",
+  POSTAL_CODE: "",
   SURROUNDING_REGION: "",
   DKZ: "",
   JOB_TITLE: "",
