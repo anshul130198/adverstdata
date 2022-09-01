@@ -7,7 +7,7 @@ import JobFilter from "./JobFilter";
 import JobListItem from "./JobListItem";
 import styles from "./JobList.module.scss";
 import exportFromJSON from "export-from-json";
-import Download from '../../assets/download.png'
+import Download from "../../assets/download.png";
 const initialValues = {
   ATS_NAME: "",
   POSTAL_CODE: "",
@@ -26,7 +26,7 @@ const initialValues = {
   COMPANY_COUNTRY: "D",
   COMPANY_POSTAL_CODE: "",
   ITEM_FROM: "0",
-  NUMBER_OF_ITEMS: "1000",
+  NUMBER_OF_ITEMS: "100",
   DATE_FROM: "",
   DATE_TO: "",
   CONTAINS_AD_CONTACT_PERSON_SALUTATION: "",
@@ -51,7 +51,7 @@ const JobList = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [payload, setPayload] = useState(initialValues);
-  const [jobResponse, setJobResponse] = useState([])
+  const [jobResponse, setJobResponse] = useState([]);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -65,7 +65,7 @@ const JobList = () => {
       setLoading(false);
     } else {
       const jobs = res[0].EXPORT.RESULT.ITEM;
-      setJobResponse(res[0])
+      setJobResponse(res[0]);
       setJobs(jobs);
       setLoading(false);
     }
@@ -75,24 +75,45 @@ const JobList = () => {
     const fileData = {
       data: jobResponse,
       fileName: "download",
-      exportType: exportFromJSON.types.json
-    }
-    exportFromJSON(fileData)
-  }
+      exportType: exportFromJSON.types.json,
+    };
+    exportFromJSON(fileData);
+  };
 
   return (
     <div className={styles["jobListContainer"]}>
       <h1 className={styles["heading"]}>{strings.JOBS}</h1>
       {<JobFilter payload={payload} setPayload={setPayload} />}
-      <button type="submit" onClick={handleSearch}>
+      <button
+        type="submit"
+        disabled={loading}
+        className={!loading ? styles["button"] : styles["button-disabled"]}
+        onClick={handleSearch}
+      >
         search
       </button>
-      {jobResponse?.EXPORT?.ITEMS === 0 && 'No results found'}
-      {jobResponse?.EXPORT?.ITEMS?.RESULT}
-      {jobResponse?.EXPORT?.ITEMS > 0 && <button onClick={() => { downloadJobResults() }}>
-        Download All results
-        <img src={Download} alt="" style={{ width: '1.5rem', position: 'relative', top: '5px', left: '1rem' }} />
-      </button>}
+      <div className={styles["download"]}>
+        {jobResponse.EXPORT && !loading && (
+          <button
+          className={styles["download-btn"]}
+            onClick={() => {
+              downloadJobResults();
+            }}
+          >
+            Download All results
+            <img
+              src={Download}
+              alt=""
+              style={{
+                width: "1.5rem",
+                position: "relative",
+                top: "5px",
+                left: "1rem",
+              }}
+            />
+          </button>
+        )}
+      </div>
       {loading && <Loading />}
       {jobs?.length && !loading
         ? jobs.map((item) => <JobListItem job={item} key={item["AD-ID"]} />)

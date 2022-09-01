@@ -20,6 +20,7 @@ const Login = () => {
     errorMessage: ""
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -35,6 +36,7 @@ const Login = () => {
         errorMessage: "",
       });
       const body = [loginData];
+      setLoading(true)
       const [error, res] = await to(commonService.login(body));
       if (error && !res) {
         console.log("error", error);
@@ -42,6 +44,7 @@ const Login = () => {
           ...loginData,
           errorMessage: "login or password is Incorrect",
         });
+        setLoading(false)
       } else {
         console.log("res", res);
         console.log("res[0]", res[0]);
@@ -49,6 +52,7 @@ const Login = () => {
           ...loginData,
           errorMessage: "",
         });
+        setLoading(false)
         localStorage.removeItem("token");
         localStorage.setItem("token", JSON.stringify(res[0]));
         navigate("/jobs");
@@ -64,7 +68,6 @@ const Login = () => {
     <div>
       <div className={styles["container"]}>
         <form>
-          {loginData.errorMessage !== "" && <p className={styles["error"]}>{loginData.errorMessage}</p>}
           <div className={styles["brandContainer"]}>
             <img src={BrandLogo} alt="" className={styles["brandHeader"]} />
             <h1>{strings.LOGIN.toUpperCase()}</h1>
@@ -113,8 +116,9 @@ const Login = () => {
             )}
           </div>
           <br />
+            {loginData.errorMessage !== "" && <p className={styles["error"]}>{loginData.errorMessage}</p>}
           <Link to="/jobs">
-            <button className={styles["loginButton"]} onClick={handleSubmit}>
+            <button disabled={loading} className={!loading ? styles["loginButton"] : styles["loginButtonDisabled"]} onClick={handleSubmit}>
               login
             </button>
           </Link>

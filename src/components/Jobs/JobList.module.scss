@@ -1,13 +1,12 @@
 $brand-color: #f59c00;
 .jobListContainer {
-
   .heading {
     display: block;
     margin: 1rem auto;
     text-align: center;
     width: 10rem;
   }
-  
+
   form {
     display: flex;
     justify-content: space-between;
@@ -15,7 +14,7 @@ $brand-color: #f59c00;
     flex-direction: column;
     width: 40%;
     margin: 0 auto;
-    
+
     input {
       width: 100%;
       border-radius: 5px;
@@ -24,14 +23,14 @@ $brand-color: #f59c00;
       font-size: 1.2rem;
       outline: none;
       font-weight: 100;
-      
+
       &:focus-within {
         border: 2px solid #ffc257 !important;
       }
     }
   }
 
-  button {
+  .button {
     margin: 2rem auto;
     display: block;
     background-color: $brand-color;
@@ -43,13 +42,40 @@ $brand-color: #f59c00;
     font-size: 1.2rem;
     transition: all 300ms ease;
     position: relative;
-    
+
     &:hover {
       opacity: 0.8;
     }
-    
+
     &:active {
       top: 1px;
     }
+  }
+  .button-disabled {
+    margin: 2rem auto;
+    display: block;
+    background-color: #f7ca7e;
+    border: 0;
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    width: 15rem;
+    padding: 0.6rem;
+    font-size: 1.2rem;
+    transition: all 300ms ease;
+    position: relative;
+    opacity: 0.8;
+  }
+  .download-btn {
+    margin: 2rem auto;
+    display: block;
+    background-color: $brand-color;
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    border: 0;
+    width: 15rem;
+    padding: 0.6rem;
+    font-size: 1.2rem;
+    transition: all 300ms ease;
+    position: relative;
   }
 }

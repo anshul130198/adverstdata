@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./JobFilter.module.scss";
 import Select from "react-select";
 import WZ08_list from "../../constants/WZ08_list";
@@ -8,11 +8,6 @@ import State_List from "../../constants/state_list";
 
 const JobFilter = (props) => {
   const { payload, setPayload } = props;
-
-  useEffect(() => {
-    // action on update of movies
-    console.log("payload inside useEffect", payload);
-  }, [payload]);
 
   const handleInputChange = (e) => {
     //for normal input

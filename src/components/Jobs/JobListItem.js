@@ -2,10 +2,11 @@ import React from "react";
 import styles from "./JobListItem.module.scss";
 import exportFromJSON from "export-from-json";
 import Download from "../../assets/download.png";
+import { useNavigate } from "react-router-dom";
 
 const JobListItem = (props) => {
   const { BRANCHE, COMPANY, POSITION, LOCATION, LINK, WZ08, TEXT } = props.job;
-
+  const navigate = useNavigate();
   const downloadJobResults = () => {
     const fileData = {
       data: props.job,
@@ -15,17 +16,12 @@ const JobListItem = (props) => {
     exportFromJSON(fileData);
   };
 
-  const renderAdText = () => {
-    return <div dangerouslySetInnerHTML={{ __html: TEXT }} />;
-  };
-
-  // function Component() {
-  //   const htmlString = '...';
-  //   return <div dangerouslySetInnerHTML={__html: htmlString} />;
-  // }
-
+  const showJobDetails = () => {
+    navigate(`/jobs/${props.job["JOB-ID"]}`);
+  }
   return (
     <div className={styles["itemContainer"]}>
+      <div className={styles["jobListItem"]}>JOB-ID : {props.job["JOB-ID"]}</div>
       <div className={styles["jobListItem"]}>POSITION : {POSITION}</div>
       <div className={styles["jobListItem"]}>COMPANY : {COMPANY}</div>
       <div className={styles["jobListItem"]}>BRANCHE : {BRANCHE}</div>
@@ -38,6 +34,17 @@ const JobListItem = (props) => {
         Description: <div dangerouslySetInnerHTML={{ __html: TEXT }}></div>
       </div>
       <br />
+      <br />
+      <div className={styles["jobListItem"]}>
+        <button
+          className={styles["jobPage"]}
+          onClick={() => {
+            showJobDetails();
+          }}
+        >
+          View job details
+        </button>
+      </div>
       <div className={styles["jobListItem"]}>
         <button
           className={styles["downloadButton"]}
@@ -45,7 +52,7 @@ const JobListItem = (props) => {
             downloadJobResults();
           }}
         >
-          download JD <img src={Download} />
+          download JD <img src={Download} alt=""/>
         </button>
       </div>
     </div>

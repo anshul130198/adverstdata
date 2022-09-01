@@ -2,22 +2,34 @@
   border: 1px solid lightgrey;
   margin: 1rem;
   padding: 1rem 1rem 0 1rem;
+  overflow: auto;
+
+
 
   .jobListItem {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    // .downloadButton {
-    //   margin: 1rem 0;
-    //   padding: 0.5rem;
-    //   color: black;
-    //   img {
-    //     position: relative;
-    //     top: 5px;
-    //     width: 1.5rem;
-    //   }
+    display: flex;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 5px 0;
+    border: 2px solid black;
+    padding: 5px;
+
+    .jobListKey {
+      width: 30%;
+    }
+
+    .jobListValue {
+      width: 70%;
+      word-break: break-all;
+    }
+
+    .jobListValue:empty {
+      width: 100px;
+      height: 20px;
+      background-color: #f59c00;
+    }
+
     .downloadButton {
       margin: 1rem 0;
       display: block;
@@ -46,3 +58,4 @@
     }
   }
 }
+
